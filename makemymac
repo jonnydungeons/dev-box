@@ -1,0 +1,108 @@
+#!/bin/bash
+# initialize script
+echo "make my mac starting"
+echo "test"
+#
+# Check if XCode-select is installed
+#
+which -s xcode-select
+if [[ $? != 0 ]] ; then
+	# Install Xcode-select
+	xcode-select --install
+fi
+
+#
+# Check if Homebrew is installed
+#
+
+echo "Checking if Homebrew is installed"
+which -s brew
+if [[ $? != 0 ]] ; then
+    # Install Homebrew
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    brew update
+fi
+ 
+#
+# Check if Git is installed
+#
+which -s git || brew install git
+ 
+#
+# Check if Node is installed and at the right version
+#
+echo "Checking if Node is installed"
+which -s node
+if [[ $? != 0 ]] ; then
+    # Install Node
+    brew install node
+fi
+
+#
+# Check if Bower is installed
+#
+echo "Checking if bower is installed globally"
+which -s bower
+if [[ $? != 0 ]] ; then
+	# Install bower
+	sudo npm install -g bower
+fi
+
+#
+# Check if Gulp is installed globally
+#
+echo "Checking if gulp is installed globally"
+which -s gulp
+if [[ $? != 0 ]] ; then
+	# Install gulp globally
+	sudo npm install -g gulp
+fi
+
+#
+# Check if Karma is installed
+#
+echo "Checking if karma is installed globally"
+which -s karma
+if [[ $? != 0 ]] ; then
+	# Install karma
+	sudo npm install -g karma
+fi
+
+#
+# Check if Sass is installed
+#
+echo "Checking if Sass is installed"
+which -s sass
+if [[ $? != 0 ]] ; then
+	# Install sass
+	sudo gem install sass
+fi
+
+#
+# Check if zsh is installed
+#
+echo "Checking if zsh is installed"
+which -s zsh
+if [[ $? != 0 ]] ; then
+	# Install zsh
+	# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
+	curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+	chsh -s /bin/zsh
+fi
+
+#
+# Check if atom is installed
+#
+echo "Checking if atom is installed"
+which -s atom
+if [[ $? != 0 ]] ; then
+	# Install atom
+	cd /Applications
+	git clone https://github.com/atom/atom.git
+	cd atom
+	script/build
+fi
+
+echo "make my mac has completed"
+
